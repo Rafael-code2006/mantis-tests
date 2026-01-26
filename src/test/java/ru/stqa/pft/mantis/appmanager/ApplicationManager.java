@@ -13,12 +13,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
     private final Properties properties;
     private WebDriver driver;
     private String browser;
+    private HttpSession session;
+    private RegistrationHelper registrationHelper;
 
     public ApplicationManager(String browser) throws IOException {
         this.browser = browser;
@@ -27,28 +30,16 @@ public class ApplicationManager {
 
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
-        System.out.println("System.getProperty(\"browser\"): " + System.getProperty("browser"));
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-
-        if(Objects.equals(browser, BrowserType.CHROME)){
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\ra_gimadeyev\\chromedriver.exe");
-            driver = new ChromeDriver();
-        } else if(Objects.equals(browser, BrowserType.FIREFOX)){
-            System.setProperty("webdriver.gecko.driver", "C:\\Users\\ra_gimadeyev\\geckodriver.exe");
-            driver = new FirefoxDriver();
-        } else {
-            System.setProperty("webdriver.edge.driver", "C:\\Users\\ra_gimadeyev\\msedgedriver.exe");
-             driver = new EdgeDriver();
-        }
-
-        driver.get(properties.getProperty("web.baseUrl"));
    }
 
     public void stop() {
         if(driver != null){
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
            driver.quit();
         }
     }
+
 
     public boolean isElementPresent(By by) {
       try {
@@ -57,5 +48,37 @@ public class ApplicationManager {
       } catch (NoSuchElementException e) {
         return false;
       }
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
+
+
+    public HttpSession newSession(){
+        return new HttpSession(this);
+    }
+
+    public RegistrationHelper registration(){
+        if(registrationHelper == null){
+            return registrationHelper = new RegistrationHelper(this);
+        }
+            return registrationHelper;
+    }
+
+    public WebDriver getDriver() {
+        if(driver == null){
+            if(Objects.equals(browser, BrowserType.CHROME)){
+                System.setProperty("webdriver.chrome.driver", "C:\\Users\\ra_gimadeyev\\chromedriver.exe");
+                driver = new ChromeDriver();
+            } else if(Objects.equals(browser, BrowserType.FIREFOX)){
+                System.setProperty("webdriver.gecko.driver", "C:\\Users\\ra_gimadeyev\\geckodriver.exe");
+                driver = new FirefoxDriver();
+            } else {
+                System.setProperty("webdriver.edge.driver", "C:\\Users\\ra_gimadeyev\\msedgedriver.exe");
+                driver = new EdgeDriver();
+            }
+        }
+        return driver;
     }
 }
