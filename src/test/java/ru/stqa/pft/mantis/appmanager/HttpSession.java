@@ -43,6 +43,7 @@ public class HttpSession {
         return body.contains(String.format("<span class=\"italic\">%s</span>", username));
     }
 
+
     private String geTextForm(CloseableHttpResponse response) throws IOException {
         try{
             return EntityUtils.toString(response.getEntity());

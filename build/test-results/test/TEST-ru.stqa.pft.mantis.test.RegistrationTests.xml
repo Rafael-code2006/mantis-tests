@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.mantis.test.RegistrationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-01-27T11:32:24.001Z" hostname="RA_GIMADEYEV" time="1.312">
+  <properties/>
+  <testcase name="test" classname="ru.stqa.pft.mantis.test.RegistrationTests" time="1.312"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Starting ChromeDriver 143.0.7499.192 (be2c1f4fd451578a9ada68a0ac12d659362b44bf-refs/branch-heads/7499@{#4083}) on port 6958
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully on port 6958.
+[1769513545.166][WARNING]: This version of ChromeDriver has not been tested with Chrome version 144.
+]]></system-err>
+</testsuite>

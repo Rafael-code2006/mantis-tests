@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.jsoup:jsoup:1.15.4'
     implementation("commons-net:commons-net:3.4")
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
     implementation "org.hamcrest:hamcrest:2.1"
