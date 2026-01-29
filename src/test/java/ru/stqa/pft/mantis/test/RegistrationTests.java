@@ -14,7 +14,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class RegistrationTests extends  TestBase {
 
-    @BeforeMethod
+    //@BeforeMethod
     public void before(){
         app.mail().start();
     }
@@ -22,14 +22,16 @@ public class RegistrationTests extends  TestBase {
     @Test
     public void test() throws IOException, MessagingException, InterruptedException {
         long now = System.currentTimeMillis();
-        String email = String.format("user%s@localhost.localdomain", now);
-        String user1 = String.format("user%s", now);
-        app.registration().start(user1, email);
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
-        String confirmation = findConfirmationLink(mailMessages, email);
         String password = "password";
+        String user = String.format("user%s", now);
+        String email = String.format("user%s@localhost.localdomain", now);
+        app.james().createUser(user, password);
+        app.registration().start(user, email);
+        //List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        List<MailMessage> messages = app.james().waitForMail(user, password, 60000);
+        String confirmation = findConfirmationLink(messages, email);
         app.registration().finish(confirmation, password);
-        assertTrue(app.newSession().login(user1, password));
+        assertTrue(app.newSession().login(user, password));
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
@@ -38,7 +40,7 @@ public class RegistrationTests extends  TestBase {
         return regex.getText(mailMessage.text);
     }
 
-    @AfterMethod(alwaysRun = true)
+    //@AfterMethod(alwaysRun = true)
     public void after(){
         app.mail().stop();
     }
