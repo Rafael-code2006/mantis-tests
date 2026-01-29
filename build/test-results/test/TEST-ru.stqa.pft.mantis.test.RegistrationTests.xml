@@ -1,12 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.stqa.pft.mantis.test.RegistrationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-01-27T11:32:24.001Z" hostname="RA_GIMADEYEV" time="1.312">
+<testsuite name="ru.stqa.pft.mantis.test.RegistrationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-01-29T10:53:26.015Z" hostname="RA_GIMADEYEV" time="6.075">
   <properties/>
-  <testcase name="test" classname="ru.stqa.pft.mantis.test.RegistrationTests" time="1.312"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Starting ChromeDriver 143.0.7499.192 (be2c1f4fd451578a9ada68a0ac12d659362b44bf-refs/branch-heads/7499@{#4083}) on port 6958
+  <testcase name="test" classname="ru.stqa.pft.mantis.test.RegistrationTests" time="6.075"/>
+  <system-out><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="http://localhost/mantisbt-1.2.19/css/default.css" />
+	<script type="text/javascript"><!--
+		if(document.layers) {document.write("<style>td{padding:0px;}<\/style>")}
+	// --></script>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta http-equiv="Pragma-directive" content="no-cache" />
+	<meta http-equiv="Cache-Directive" content="no-cache" />
+	<meta http-equiv="Expires" content="Thu, 29 Jan 2026 10:53:32 GMT" />
+	<meta name="robots" content="noindex,follow" />
+	<link rel="shortcut icon" href="/mantisbt-1.2.19/images/favicon.ico" type="image/x-icon" />
+	<link rel="search" type="application/opensearchdescription+xml" title="MantisBT: Text Search" href="http://localhost/mantisbt-1.2.19/browser_search_plugin.php?type=text" />	<link rel="search" type="application/opensearchdescription+xml" title="MantisBT: Issue Id" href="http://localhost/mantisbt-1.2.19/browser_search_plugin.php?type=id" />	<title>My View - MantisBT</title>
+<script type="text/javascript" src="/mantisbt-1.2.19/javascript/min/common.js"></script>
+<script type="text/javascript">var loading_lang = "Loading...";</script><script type="text/javascript" src="/mantisbt-1.2.19/javascript/min/ajax.js"></script>
+	<meta http-equiv="Refresh" content="1800;URL=http://localhost/mantisbt-1.2.19/my_view_page.php" />
+</head>
+<body>
+<div align="left"><a href="my_view_page.php"><img border="0" alt="MantisBT" src="/mantisbt-1.2.19/images/mantis_logo.png" /></a></div><table class="hide"><tr><td class="login-info-left">Logged in as: <span class="italic">user1769684006015</span> <span class="small">(reporter)</span></td><td class="login-info-middle"><span class="italic">2026-01-29 11:53 CET</span></td><td class="login-info-right"><form method="post" name="form_set_project" action="/mantisbt-1.2.19/set_project.php">Project: <select name="project_id" class="small" onchange="document.forms.form_set_project.submit();"><option value="0" selected="selected" >All Projects</option>
+<option value="3">MyTestProject</option>
+<option value="2">test2</option>
+</select> <input type="submit" class="button-small" value="Switch" /></form><a href="http://localhost/mantisbt-1.2.19/issues_rss.php?username=user1769684006015&amp;key=962346e3b200f88c3027f7efd7548672"><img src="/mantisbt-1.2.19/images/rss.png" alt="RSS" style="border-style: none; margin: 5px; vertical-align: middle;" /></a></td></tr></table><table class="width100" cellspacing="0"><tr><td class="menu"><a href="/mantisbt-1.2.19/my_view_page.php">My View</a> | <a href="/mantisbt-1.2.19/view_all_bug_page.php">View Issues</a> | <a href="/mantisbt-1.2.19/bug_report_page.php">Report Issue</a> | <a href="/mantisbt-1.2.19/changelog_page.php">Change Log</a> | <a href="/mantisbt-1.2.19/roadmap_page.php">Roadmap</a> | <a href="/mantisbt-1.2.19/account_page.php">My Account</a> | <a href="/mantisbt-1.2.19/logout_page.php">Logout</a></td><td class="menu right nowrap"><form method="post" action="/mantisbt-1.2.19/jump_to_bug.php"><input type="text" name="bug_id" size="10" class="small" value="Issue #" onfocus="if (this.value == 'Issue #') this.value = ''" onblur="if (this.value == '') this.value = 'Issue #'" />&#160;<input type="submit" class="button-small" value="Jump" />&#160;</form></td></tr></table>
+<div align="center">
+<table class="hide" border="0" cellspacing="3" cellpadding="0">
+
+<tr><td valign="top" width="50%">
+<table class="width100" cellspacing="1">
+<tr>
+	<td class="form-title" colspan="2">
+<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;handler_id=[none]&amp;hide_status=90">Unassigned</a>&#160;<span class="bracket-link">[&#160;<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;handler_id=[none]&amp;hide_status=90" target="_blank">^</a>&#160;]</span> (0 - 0 / 0)	</td>
+</tr>
+
+</table>
+</td><td valign="top" width="50%">
+<table class="width100" cellspacing="1">
+<tr>
+	<td class="form-title" colspan="2">
+<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;reporter_id=78&amp;hide_status=90">Reported by Me</a>&#160;<span class="bracket-link">[&#160;<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;reporter_id=78&amp;hide_status=90" target="_blank">^</a>&#160;]</span> (0 - 0 / 0)	</td>
+</tr>
+
+</table>
+</td></tr><tr><td valign="top" width="50%">
+<table class="width100" cellspacing="1">
+<tr>
+	<td class="form-title" colspan="2">
+<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;show_status=80&amp;hide_status=80">Resolved</a>&#160;<span class="bracket-link">[&#160;<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;show_status=80&amp;hide_status=80" target="_blank">^</a>&#160;]</span> (0 - 0 / 0)	</td>
+</tr>
+
+</table>
+</td><td valign="top" width="50%">
+<table class="width100" cellspacing="1">
+<tr>
+	<td class="form-title" colspan="2">
+<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;hide_status=none">Recently Modified</a>&#160;<span class="bracket-link">[&#160;<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;hide_status=none" target="_blank">^</a>&#160;]</span> (0 - 0 / 0)	</td>
+</tr>
+
+</table>
+</td></tr><tr><td valign="top" width="50%">
+<table class="width100" cellspacing="1">
+<tr>
+	<td class="form-title" colspan="2">
+<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;user_monitor=78&amp;hide_status=90">Monitored by Me</a>&#160;<span class="bracket-link">[&#160;<a class="subtle" href="view_all_set.php?type=1&amp;temporary=y&amp;user_monitor=78&amp;hide_status=90" target="_blank">^</a>&#160;]</span> (0 - 0 / 0)	</td>
+</tr>
+
+</table>
+</td><td valign="top" width="50%"></td></tr>
+</table>
+<br /><table class="width100" cellspacing="1"><tr><td class="small-caption" width="14%" bgcolor="#fcbdbd">new</td><td class="small-caption" width="14%" bgcolor="#e3b7eb">feedback</td><td class="small-caption" width="14%" bgcolor="#ffcd85">acknowledged</td><td class="small-caption" width="14%" bgcolor="#fff494">confirmed</td><td class="small-caption" width="14%" bgcolor="#c2dfff">assigned</td><td class="small-caption" width="14%" bgcolor="#d2f5b0">resolved</td><td class="small-caption" width="14%" bgcolor="#c9ccc4">closed</td></tr></table></div>
+
+	<br />
+	<hr size="1" />
+<table border="0" width="100%" cellspacing="0" cellpadding="0"><tr valign="top"><td>	<address>Copyright &copy; 2000 - 2026 MantisBT Team</address>
+	<address><a href="mailto:webmaster@example.com">webmaster@example.com</a></address>
+</td><td>
+	<div align="right"><a href="http://www.mantisbt.org" title="Free Web Based Bug Tracker"><img src="/mantisbt-1.2.19/images/mantis_logo.png" width="145" height="50" alt="Powered by Mantis Bugtracker" border="0" /></a></div>
+</td></tr></table>
+</body>
+</html>
+
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticMDCBinder".
+SLF4J: Defaulting to no-operation MDCAdapter implementation.
+SLF4J: See http://www.slf4j.org/codes.html#no_static_mdc_binder for further details.
+Starting ChromeDriver 143.0.7499.192 (be2c1f4fd451578a9ada68a0ac12d659362b44bf-refs/branch-heads/7499@{#4083}) on port 11998
 Only local connections are allowed.
 Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
-ChromeDriver was started successfully on port 6958.
-[1769513545.166][WARNING]: This version of ChromeDriver has not been tested with Chrome version 144.
+ChromeDriver was started successfully on port 11998.
+[1769684007.190][WARNING]: This version of ChromeDriver has not been tested with Chrome version 144.
 ]]></system-err>
 </testsuite>

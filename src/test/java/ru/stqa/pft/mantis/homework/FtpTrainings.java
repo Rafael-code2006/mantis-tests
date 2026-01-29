@@ -1,7 +1,6 @@
 package ru.stqa.pft.mantis.homework;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.testng.ReporterConfig;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,18 +8,17 @@ import org.testng.annotations.Test;
 import java.io.*;
 import java.util.Properties;
 
-public class FtpTraining {
+public class FtpTrainings {
     private static Properties properties;
     private static FTPClient ftpClient;
 
     @BeforeMethod
     public void before() throws IOException {
-        String server = properties.getProperty("ftp.server");
-        int port = Integer.parseInt(properties.getProperty("ftp.port"));
-        String username = properties.getProperty("ftp.username");
-        String password = properties.getProperty("ftp.password");
         properties = new Properties();
         properties.load(new FileReader(new File("D:\\Java\\mantis-tests\\src\\test\\resources\\local_test.properties")));
+        String server = properties.getProperty("ftp.server");
+        String username = properties.getProperty("ftp.username");
+        String password = properties.getProperty("ftp.password");
         ftpClient = new FTPClient();
         ftpClient.connect(server);
         ftpClient.login(username, password);
@@ -40,19 +38,19 @@ public class FtpTraining {
     public void test() throws IOException {
 
 
+
         try{
             File file = new File("src/test/resources/test.txt");
             storeFile(file);
 
-
-            rename(file, "rename-test.txt");
-
+            File newFile = new File("\\D:\\server\\rename-test.txt\\");
+            rename(file, newFile.getName());
 
             for(String x : listName()){
                 System.out.println("До: " + x);
             }
 
-            deleteFile(file);
+            deleteFile(newFile);
 
             for(String x : listName()){
                 System.out.println("После: " + x);
@@ -69,7 +67,7 @@ public class FtpTraining {
 
             removeDirectory("NewFolder");
 
-            System.out.println("Успешное подключение к ftp серверу");
+                  System.out.println("Успешное подключение к ftp серверу");
 
 
         } catch (IOException e){

@@ -33,7 +33,6 @@ public class HttpSession {
         post.setEntity(new UrlEncodedFormEntity(params));
         CloseableHttpResponse response = httpClient.execute(post);
         String body = geTextForm(response);
-        System.out.println(EntityUtils.toString(post.getEntity()));
         HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "login_page.php");
         try(CloseableHttpResponse response2 = httpClient.execute(get)){
             System.out.println(EntityUtils.toString(response2.getEntity()));

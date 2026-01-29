@@ -13,7 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
@@ -23,6 +22,7 @@ public class ApplicationManager {
     private HttpSession session;
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
+    private MailHelper mailHelper;
 
     public ApplicationManager(String browser) throws IOException {
         this.browser = browser;
@@ -36,7 +36,6 @@ public class ApplicationManager {
 
     public void stop() {
         if(driver != null){
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
            driver.quit();
         }
     }
@@ -73,6 +72,13 @@ public class ApplicationManager {
            ftp = new FtpHelper(this);
         }
         return ftp;
+    }
+
+    public MailHelper mail(){
+        if(mailHelper == null){
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
     }
 
     public WebDriver getDriver() {

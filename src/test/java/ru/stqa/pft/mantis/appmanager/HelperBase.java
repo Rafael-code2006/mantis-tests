@@ -1,4 +1,4 @@
-package com.example.TestsAddressbook.appmanager;
+package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
@@ -8,13 +8,12 @@ import org.openqa.selenium.WebElement;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.DoubleToIntFunction;
 
 public class HelperBase {
-    protected WebDriver driver;
+    protected ApplicationManager app;
 
-    public HelperBase(WebDriver driver) {
-        this.driver = driver;
+    public HelperBase(ApplicationManager app) {
+        this.app = app;
     }
 
 
@@ -24,18 +23,18 @@ public class HelperBase {
 
     public boolean isAlertPresent() {
         try {
-            driver.switchTo().alert();
+            app.getDriver().switchTo().alert();
             return true;
         } catch (NoAlertPresentException e) {
             return false;
         }
     }
 
-    protected void type(String group_name, String text) {
-        click(By.name(group_name));
-        waitFindElement(By.name(group_name)).clear();
+    protected void type(By locator, String text) {
+        click(locator);
+        waitFindElement(locator).clear();
         if(text != null) {
-            waitFindElement(By.name(group_name)).sendKeys(text);
+            waitFindElement(locator).sendKeys(text);
         }
     }
 
@@ -72,8 +71,8 @@ public class HelperBase {
         long currentTime = System.currentTimeMillis();
         while(System.currentTimeMillis() < currentTime + 3000){
             List<WebElement> elements = new ArrayList<>();
-            if(!driver.findElements(xpath).isEmpty()){
-                elements = driver.findElements(xpath);
+            if(!app.getDriver().findElements(xpath).isEmpty()){
+                elements = app.getDriver().findElements(xpath);
                 if(!elements.isEmpty()) return elements;
             }
         }
@@ -84,7 +83,7 @@ public class HelperBase {
         long currentTime = System.currentTimeMillis();
         while(System.currentTimeMillis() < currentTime + 500){
             try{
-                return driver.findElement(locator);
+                return app.getDriver().findElement(locator);
             } catch (Exception ex){
                 // Do nothing
             }
