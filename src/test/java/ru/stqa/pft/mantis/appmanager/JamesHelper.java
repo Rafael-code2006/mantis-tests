@@ -1,13 +1,15 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.apache.commons.net.telnet.TelnetClient;
+import ru.stqa.pft.mantis.model.MailMessage;
 
-import javax.mail.Session;
-import javax.mail.Store;
+import javax.mail.*;
 import java.io.*;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JamesHelper {
 
@@ -30,24 +32,12 @@ public class JamesHelper {
     }
 
 
-    public boolean doesUserExists(String name) throws IOException {
-        initTelnetSession();
-        write("verify" + name);
-        String result = readUntil("exists");
-        closeTelnetSession();
-        return result.trim().equals("User " + name + " exist");
-    }
-
-
-
     public void createUser(String name, String passwd) throws IOException {
         initTelnetSession();
         write("adduser " + name + " " + passwd);
         System.out.println(readUntil("User " + name + " added"));
         closeTelnetSession();
     }
-
-
 
     public void deleteUser(String name) throws IOException {
         initTelnetSession();
@@ -65,7 +55,7 @@ public class JamesHelper {
         int size = Integer.parseInt(bufferedReader.readLine().replaceAll("Existing accounts ", ""));
         for(int i=0; i<size; i++){
             line = bufferedReader.readLine();
-            System.out.println("line: " + line);
+            System.out.println(line);
             if(line.startsWith("Existing accounts")){
                 System.out.println(line); // количество пользователей
             }
@@ -81,11 +71,9 @@ public class JamesHelper {
         return users;
     }
 
-
     public int counterUsers() throws IOException {
         return listUsers().size();
     }
-
 
     public boolean verifyUser(String name) throws IOException {
         initTelnetSession();
@@ -99,6 +87,11 @@ public class JamesHelper {
             return false;
         }
     }
+
+
+
+
+
 
     private void initTelnetSession() throws IOException {
         mailServer = app.getProperty("mailserver.host");
@@ -176,6 +169,66 @@ public class JamesHelper {
 
     private void closeTelnetSession(){
         write("quit");
+    }
+
+
+    private List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException {
+        long now = System.currentTimeMillis();
+        while(System.currentTimeMillis() - now < timeout){
+            List<MailMessage> allMail = getAllMail(username, password);
+            if(allMail.size() > 0){
+                return allMail;
+            }
+            try{
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        throw new Error("No mail :(");
+    }
+
+    private List<MailMessage> getAllMail(String username, String password) throws MessagingException {
+        Folder inbox = openInbox(username, password);
+        List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
+        closeFolder(inbox);
+        return messages;
+    }
+
+
+    private static MailMessage toModelMail(Message m){
+        try{
+            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    private Folder openInbox(String username, String password) throws MessagingException {
+        store = mailSession.getStore("pop3");
+        store.connect(mailServer, username, password);
+        Folder folder = store.getDefaultFolder().getFolder("INBOX");
+        folder.open(Folder.READ_WRITE);
+        return folder;
+    }
+
+
+    private void drainEmail(String username, String password) throws MessagingException {
+        Folder folder = openInbox(username, password);
+        for(Message x : folder.getMessages()){
+            x.setFlag(Flags.Flag.DELETED, true);
+        }
+        closeFolder(folder);
+    }
+
+    private void closeFolder(Folder folder) throws MessagingException {
+        folder.close(true);
+        store.close();
     }
 
 
