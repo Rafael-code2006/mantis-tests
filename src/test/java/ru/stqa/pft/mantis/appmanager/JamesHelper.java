@@ -4,10 +4,10 @@ import org.apache.commons.net.telnet.TelnetClient;
 
 import javax.mail.Session;
 import javax.mail.Store;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JamesHelper {
 
@@ -30,7 +30,7 @@ public class JamesHelper {
     }
 
 
-    public boolean doesUserExists(String name){
+    public boolean doesUserExists(String name) throws IOException {
         initTelnetSession();
         write("verify" + name);
         String result = readUntil("exists");
@@ -40,23 +40,67 @@ public class JamesHelper {
 
 
 
-    public void createUser(String name, String passwd){
+    public void createUser(String name, String passwd) throws IOException {
         initTelnetSession();
         write("adduser " + name + " " + passwd);
-        String result = readUntil("User " + name + " added");
+        System.out.println(readUntil("User " + name + " added"));
         closeTelnetSession();
     }
 
 
 
-    public void deleteUser(String name){
+    public void deleteUser(String name) throws IOException {
         initTelnetSession();
         write("deluser " + name);
         String result = readUntil("User " + name + " deleted");
         closeTelnetSession();
     }
 
-    private void initTelnetSession(){
+    public List<String> listUsers() throws IOException {
+        initTelnetSession();
+        write("listusers");
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+        String line;
+        List<String> users = new ArrayList<>();
+        int size = Integer.parseInt(bufferedReader.readLine().replaceAll("Existing accounts ", ""));
+        for(int i=0; i<size; i++){
+            line = bufferedReader.readLine();
+            System.out.println("line: " + line);
+            if(line.startsWith("Existing accounts")){
+                System.out.println(line); // количество пользователей
+            }
+
+            if(line.startsWith("user: ")){
+                String user = line.replaceFirst("user: ", "");
+                users.add(user);
+            }
+
+            if(line.trim().isEmpty()){break;}
+        }
+        closeTelnetSession();
+        return users;
+    }
+
+
+    public int counterUsers() throws IOException {
+        return listUsers().size();
+    }
+
+
+    public boolean verifyUser(String name) throws IOException {
+        initTelnetSession();
+        write("verify " + name);
+        if(containsPattern("User "+name+" exists")){
+            System.out.println("User "+name+" exists");
+            closeTelnetSession();
+            return true;
+        } else {
+            closeTelnetSession();
+            return false;
+        }
+    }
+
+    private void initTelnetSession() throws IOException {
         mailServer = app.getProperty("mailserver.host");
         int port = Integer.parseInt(app.getProperty("mailserver.port"));
         String login = app.getProperty("mailserver.adminLogin");
@@ -74,41 +118,48 @@ public class JamesHelper {
         }
 
 
-        readUntil("Logged id:");
-        write("");
-        readUntil("Password:");
-        write("");
-
-
-        readUntil("Login id:");
+        System.out.println(readUntil("Login id:"));
         write(login);
-        readUntil("Password");
+        System.out.println(readUntil("Password"));
         write(password);
 
 
-        readUntil("Welcome " + login + ". HELP for a list of commands");
+        System.out.println(readUntil("Welcome " + login + ". HELP for a list of commands"));
 
     }
 
 
-    private String readUntil(String pattern){
-        try{
-            char lastChar = pattern.charAt(pattern.length()-1);
-            StringBuffer sb = new StringBuffer();
-            char ch = (char) in.read();
-            while(true){
-                System.out.println(ch);
-                sb.append(ch);
-                if(ch == lastChar){
-                    if(sb.toString().endsWith(pattern)){
-                        return sb.toString();
-                    }
-                }
-                ch = (char) in.read();
+    private String readUntil(String pattern) throws IOException {
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(in));
+        String line;
+        StringBuilder sb = new StringBuilder();
+        long start = System.currentTimeMillis();
+        while((line = buffer.readLine()) != null){
+            sb.append(line).append("\n");
+            if(line.contains(pattern)){
+            return line;
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            if(line.trim().isEmpty()){
+                break;
+            }
         }
+        return sb.toString();
+    }
+
+    private boolean containsPattern(String pattern) throws IOException {
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(in));
+        String line;
+        while((line = buffer.readLine()) != null){
+            if(line.contains(pattern)){
+                return true;
+            }
+
+            if(line.trim().isEmpty()){
+                break;
+            }
+        }
+        return false;
     }
 
 
